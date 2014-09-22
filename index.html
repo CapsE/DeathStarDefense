@@ -93,6 +93,14 @@
 			var material = new THREE.MeshFaceMaterial(materials);
 			return new THREE.Mesh( geometry, material );
 		}
+		
+		//Creating a HP-Bar
+		function makeHPBar(){
+			var mat = new THREE.SpriteMaterial( { color: 0x00ff00, fog: true } );
+			var sprite = new THREE.Sprite(mat);
+			sprite.scale.set(1.5,0.15,1);
+			return sprite;
+		}
 	</script>
 	<script>
 		//Raycasting onclick
@@ -117,6 +125,18 @@
 					turret.position = new THREE.Vector3(x,y,z);
 					turret.lookAt(center);
 					scene.add(turret);
+					var hp = makeHPBar();
+					var d = center.distanceTo(turret.position);
+					var alpha = Math.asin(x/d);
+					var betha = Math.asin(y/d);
+					var gamma = Math.asin(z/d);
+					
+					var x2 = Math.sin(alpha) * (d +3);
+					var y2 = Math.sin(betha) * (d +3);
+					var z2 = Math.sin(gamma) * (d +3);
+					
+					hp.position.set(x2,y2,z2);
+					scene.add(hp);
 				}
 			}
 		}

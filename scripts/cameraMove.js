@@ -1,4 +1,5 @@
 var rotation = 0;
+var topRotation = 0;
 var radius = 100;
 document.onkeydown = checkKey;
 function checkKey(e) {
@@ -7,15 +8,11 @@ function checkKey(e) {
 	
 	//e
 	if (e.keyCode == '69') {
-		camera.position.y += 1;
-	}
-	//f
-	if (e.keyCode == '70') {
-		Pipette();
+		topRotation += 0.04;
 	}
 	//q
 	if (e.keyCode == '81') {
-		camera.position.y -= 1;
+		topRotation -= 0.04;
 	}
 	//a
 	if (e.keyCode == '65') {
@@ -62,7 +59,9 @@ function checkKey(e) {
 }
 
 function CalcRotation(){
-	camera.position.x = Math.cos(rotation)*radius;
-	camera.position.z = Math.sin(rotation)*radius;
+	nradius = Math.cos(topRotation)*radius;
+	camera.position.x = Math.cos(rotation)*nradius;
+	camera.position.z = Math.sin(rotation)*nradius;
+	camera.position.y = Math.sin(topRotation)*radius;
 	camera.lookAt(center);
 }
